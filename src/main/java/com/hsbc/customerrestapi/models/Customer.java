@@ -18,7 +18,7 @@ public class Customer {
     private String name;
 
     @ManyToOne
-    @JsonIgnoreProperties({"sons"})
+    @JsonIgnoreProperties({"customers"})
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address address;
 }

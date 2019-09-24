@@ -23,7 +23,7 @@ public class Address {
     @Column(name = "ziCode", updatable = false, nullable = false)
     private String zipCode;
 
-    @OneToMany(mappedBy = "father")
-    @JsonIgnoreProperties({"father"})
+    @OneToMany(mappedBy = "address")
+    @JsonIgnoreProperties({"address"})
     private Set<Customer> customers;
 }
