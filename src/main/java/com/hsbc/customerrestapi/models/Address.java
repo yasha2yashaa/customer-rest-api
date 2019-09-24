@@ -20,10 +20,20 @@ public class Address {
     @Column(name = "street", updatable = false, nullable = false)
     private String street;
 
-    @Column(name = "ziCode", updatable = false, nullable = false)
+    @Column(name = "zipCode", updatable = false, nullable = false)
     private String zipCode;
 
     @OneToMany(mappedBy = "address")
     @JsonIgnoreProperties({"address"})
     private Set<Customer> customers;
+
+    // Default constructor
+    public Address() {}
+
+    // Constructor for testing
+    public Address(String city, String street, String zipCode) {
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+    }
 }
