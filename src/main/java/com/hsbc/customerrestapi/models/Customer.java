@@ -21,4 +21,13 @@ public class Customer {
     @JsonIgnoreProperties({"customers"})
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address address;
+
+    // Default Constructor
+    public Customer() {}
+
+    // Constructor for testing
+    public Customer(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
 }
