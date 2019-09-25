@@ -8,31 +8,35 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = CustomerRestApiApplication.class, webEnvironment = RANDOM_PORT)
 public class CustomerRestApiApplicationTests {
 
+	@LocalServerPort
+	private int port;
+
 	@Test
-	public void contextLoads() {
+	public void contextLoads() {;
 	}
 
 	@Test
-	public void whenCustomerDoesNotExistsThen404IsReceived() throws IOException {
+	public void whenGetCustomerDoesNotExistsThen404IsReceived() throws IOException {
 		// Given
-		HttpUriRequest request = new HttpGet( "localhost:8080/api/customers/1" );
+		HttpUriRequest request = new HttpGet(String.format("http://localhost:%s/api/customers/1", port));
 		// When
-		HttpResponse response = HttpClientBuilder.create().build().execute( request );
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		// Then
 		assertThat(
 				response.getStatusLine().getStatusCode(),
 				equalTo(HttpStatus.SC_NOT_FOUND));
 	}
-
 }
