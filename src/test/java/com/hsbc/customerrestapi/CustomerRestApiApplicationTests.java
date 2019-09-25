@@ -67,6 +67,34 @@ public class CustomerRestApiApplicationTests {
                 equalTo(HttpStatus.SC_CREATED));
     }
 
+
+	@Test
+	public void whenGetCustomerExistsThen200IsReceived() throws IOException {
+		// Given
+		String jsonString = "{\n" +
+				"    \"name\": \"newCustomerName\",\n" +
+				"    \"address\": {\n" +
+				"        \"city\": \"cityName\",\n" +
+				"        \"street\": \"streetName\",\n" +
+				"        \"zipCode\": \"newZipCode\"\n" +
+				"    }\n" +
+				"}";
+		StringEntity requestEntity = new StringEntity(
+				jsonString,
+				ContentType.APPLICATION_JSON);
+		HttpPost postMethod = new HttpPost(getHostUri());
+		postMethod.setEntity(requestEntity);
+		HttpClientBuilder.create().build().execute(postMethod);
+		HttpUriRequest getRequest = new HttpGet(getHostUriWithId(1));
+		// When
+		HttpResponse response = HttpClientBuilder.create().build().execute(getRequest);
+		// Then
+		assertThat(
+				response.getStatusLine().getStatusCode(),
+				equalTo(HttpStatus.SC_OK));
+	}
+
+
 	private String getHostUri() {
 		return String.format("http://localhost:%s/api/customers", port);
 	}
