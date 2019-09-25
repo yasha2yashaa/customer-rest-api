@@ -34,7 +34,7 @@ public class CustomerRestApiApplicationTests {
 	@Test
 	public void whenGetCustomerDoesNotExistsThen404IsReceived() throws IOException {
 		// Given
-		HttpUriRequest request = new HttpGet(getHostUri());
+		HttpUriRequest request = new HttpGet(getHostUriWithId(1));
 		// When
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		// Then
@@ -68,7 +68,11 @@ public class CustomerRestApiApplicationTests {
     }
 
 	private String getHostUri() {
-		return String.format("http://localhost:%s/api/customers/1", port);
+		return String.format("http://localhost:%s/api/customers", port);
 	}
+
+	private String getHostUriWithId(int id) {
+	    return String.format("http://localhost:%s/api/customers/%s", port, id);
+    }
 
 }
