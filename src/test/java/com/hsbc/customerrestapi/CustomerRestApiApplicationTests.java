@@ -67,7 +67,6 @@ public class CustomerRestApiApplicationTests {
                 equalTo(HttpStatus.SC_CREATED));
     }
 
-
 	@Test
 	public void whenGetCustomerExistsThen200IsReceived() throws IOException {
 		// Given
@@ -94,6 +93,28 @@ public class CustomerRestApiApplicationTests {
 				equalTo(HttpStatus.SC_OK));
 	}
 
+	@Test
+	public void whenInvalidCustomerPostThen409IsReceived() throws IOException {
+		// Given
+		String jsonString = "{\n" +
+				"    \"invalidField1\": \"invalid\",\n" +
+				"    \"invalidField2\": {\n" +
+				"        \"dd\": \"cityName\",\n" +
+				"        \"street\": \"streetName\"" +
+				"    }\n" +
+				"}";
+		StringEntity requestEntity = new StringEntity(
+				jsonString,
+				ContentType.APPLICATION_JSON);
+		HttpPost postMethod = new HttpPost(getHostUri());
+		postMethod.setEntity(requestEntity);
+		// When
+		HttpResponse response = HttpClientBuilder.create().build().execute(postMethod);
+		// Then
+		assertThat(
+				response.getStatusLine().getStatusCode(),
+				equalTo(HttpStatus.SC_CONFLICT));
+	}
 
 	private String getHostUri() {
 		return String.format("http://localhost:%s/api/customers", port);
