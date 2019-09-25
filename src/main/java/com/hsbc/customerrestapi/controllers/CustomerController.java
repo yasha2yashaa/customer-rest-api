@@ -25,7 +25,7 @@ public class CustomerController implements Controller<Customer> {
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Customer getById(@PathVariable("id") Long id) {
+    public Customer getById(@PathVariable("id") long id) {
         return customerService.getById(id);
     }
 }
