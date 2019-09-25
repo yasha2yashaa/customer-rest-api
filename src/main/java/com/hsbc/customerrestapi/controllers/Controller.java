@@ -1,6 +1,6 @@
 package com.hsbc.customerrestapi.controllers;
 
 public interface Controller<E> {
-    void add(E entity);
+    E add(E entity);
     E getById(long id);
 }

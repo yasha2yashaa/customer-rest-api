@@ -19,8 +19,9 @@ public class CustomerController implements Controller<Customer> {
 
     @Override
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void add(@RequestBody Customer customer) {
+    public Customer add(@RequestBody Customer customer) {
         customerService.add(customer);
+        return customer;
     }
 
     @Override
