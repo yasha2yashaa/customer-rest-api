@@ -46,14 +46,7 @@ public class CustomerRestApiApplicationTests {
 	@Test
 	public void whenValidCustomerPostThen201IsReceived() throws IOException {
 	    // Given
-        String jsonString = "{\n" +
-                "    \"name\": \"newCustomerName\",\n" +
-                "    \"address\": {\n" +
-                "        \"city\": \"cityName\",\n" +
-                "        \"street\": \"streetName\",\n" +
-                "        \"zipCode\": \"newZipCode\"\n" +
-                "    }\n" +
-                "}";
+        String jsonString = getValidCustomerJsonString();
         StringEntity requestEntity = new StringEntity(
                 jsonString,
                 ContentType.APPLICATION_JSON);
@@ -70,14 +63,7 @@ public class CustomerRestApiApplicationTests {
 	@Test
 	public void whenGetCustomerExistsThen200IsReceived() throws IOException {
 		// Given
-		String jsonString = "{\n" +
-				"    \"name\": \"newCustomerName\",\n" +
-				"    \"address\": {\n" +
-				"        \"city\": \"cityName\",\n" +
-				"        \"street\": \"streetName\",\n" +
-				"        \"zipCode\": \"newZipCode\"\n" +
-				"    }\n" +
-				"}";
+		String jsonString = getValidCustomerJsonString();
 		StringEntity requestEntity = new StringEntity(
 				jsonString,
 				ContentType.APPLICATION_JSON);
@@ -96,13 +82,7 @@ public class CustomerRestApiApplicationTests {
 	@Test
 	public void whenInvalidCustomerPostThen409IsReceived() throws IOException {
 		// Given
-		String jsonString = "{\n" +
-				"    \"invalidField1\": \"invalid\",\n" +
-				"    \"invalidField2\": {\n" +
-				"        \"dd\": \"cityName\",\n" +
-				"        \"street\": \"streetName\"" +
-				"    }\n" +
-				"}";
+		String jsonString = getInvalidCustomerJsonString();
 		StringEntity requestEntity = new StringEntity(
 				jsonString,
 				ContentType.APPLICATION_JSON);
@@ -124,4 +104,24 @@ public class CustomerRestApiApplicationTests {
 	    return String.format("http://localhost:%s/api/customers/%s", port, id);
     }
 
+    private String getValidCustomerJsonString() {
+		return "{\n" +
+				"    \"name\": \"newCustomerName\",\n" +
+				"    \"address\": {\n" +
+				"        \"city\": \"cityName\",\n" +
+				"        \"street\": \"streetName\",\n" +
+				"        \"zipCode\": \"newZipCode\"\n" +
+				"    }\n" +
+				"}";
+	}
+
+	private String getInvalidCustomerJsonString() {
+		return "{\n" +
+				"    \"invalidField1\": \"invalid\",\n" +
+				"    \"invalidField2\": {\n" +
+				"        \"dd\": \"cityName\",\n" +
+				"        \"street\": \"streetName\"" +
+				"    }\n" +
+				"}";
+	}
 }
