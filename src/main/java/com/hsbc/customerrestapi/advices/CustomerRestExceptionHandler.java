@@ -1,5 +1,6 @@
 package com.hsbc.customerrestapi.advices;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,5 +19,15 @@ public class CustomerRestExceptionHandler {
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<CustomerErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        CustomerErrorResponse errorMessage = new CustomerErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                exception.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
     }
 }
