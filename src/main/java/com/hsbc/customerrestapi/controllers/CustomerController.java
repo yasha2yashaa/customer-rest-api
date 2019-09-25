@@ -3,6 +3,7 @@ package com.hsbc.customerrestapi.controllers;
 import com.hsbc.customerrestapi.models.Customer;
 import com.hsbc.customerrestapi.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class CustomerController implements Controller<Customer> {
     }
 
     @Override
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Customer add(@RequestBody Customer customer) {
         customerService.add(customer);
