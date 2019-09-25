@@ -34,7 +34,7 @@ public class CustomerRestApiApplicationTests {
 	@Test
 	public void whenGetCustomerDoesNotExistsThen404IsReceived() throws IOException {
 		// Given
-		HttpUriRequest request = new HttpGet(String.format("http://localhost:%s/api/customers/1", port));
+		HttpUriRequest request = new HttpGet(getHostUri());
 		// When
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		// Then
@@ -57,7 +57,7 @@ public class CustomerRestApiApplicationTests {
         StringEntity requestEntity = new StringEntity(
                 jsonString,
                 ContentType.APPLICATION_JSON);
-        HttpPost postMethod = new HttpPost(String.format("http://localhost:%s/api/customers/1", port));
+        HttpPost postMethod = new HttpPost(getHostUri());
         postMethod.setEntity(requestEntity);
         // When
         HttpResponse response = HttpClientBuilder.create().build().execute(postMethod);
@@ -66,4 +66,9 @@ public class CustomerRestApiApplicationTests {
                 response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_CREATED));
     }
+
+	private String getHostUri() {
+		return String.format("http://localhost:%s/api/customers/1", port);
+	}
+
 }
