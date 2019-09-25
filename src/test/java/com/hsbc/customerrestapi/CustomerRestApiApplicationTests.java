@@ -3,7 +3,10 @@ package com.hsbc.customerrestapi;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,4 +42,28 @@ public class CustomerRestApiApplicationTests {
 				response.getStatusLine().getStatusCode(),
 				equalTo(HttpStatus.SC_NOT_FOUND));
 	}
+
+	@Test
+	public void whenValidCustomerPostThen201IsReceived() throws IOException {
+	    // Given
+        String jsonString = "{\n" +
+                "    \"name\": \"newCustomerName\",\n" +
+                "    \"address\": {\n" +
+                "        \"city\": \"cityName\",\n" +
+                "        \"street\": \"streetName\",\n" +
+                "        \"zipCode\": \"newZipCode\"\n" +
+                "    }\n" +
+                "}";
+        StringEntity requestEntity = new StringEntity(
+                jsonString,
+                ContentType.APPLICATION_JSON);
+        HttpPost postMethod = new HttpPost(String.format("http://localhost:%s/api/customers/1", port));
+        postMethod.setEntity(requestEntity);
+        // When
+        HttpResponse response = HttpClientBuilder.create().build().execute(postMethod);
+        // Then
+        assertThat(
+                response.getStatusLine().getStatusCode(),
+                equalTo(HttpStatus.SC_CREATED));
+    }
 }
