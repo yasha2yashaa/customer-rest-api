@@ -23,4 +23,9 @@ public class CustomerService implements RestService<Customer>{
     public Customer getById(long id) {
         return customerRepository.findById(id).get();
     }
+
+    @Override
+    public Iterable<Customer> getAll() {
+        return customerRepository.findAll();
+    }
 }

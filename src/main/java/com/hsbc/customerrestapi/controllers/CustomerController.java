@@ -31,4 +31,10 @@ public class CustomerController implements Controller<Customer> {
     public Customer getById(@PathVariable("id") long id) {
         return customerService.getById(id);
     }
+
+    @Override
+    @RequestMapping(method = RequestMethod.GET)
+    public Iterable<Customer> getAll() {
+        return customerService.getAll();
+    }
 }
