@@ -18,3 +18,4 @@ Customer Rest Api built with spring boot
 ```
 
 - To get customer, send request to http://localhost:8080/api/customers/id where "id" is id of the customer you want to get
+- There is also included findAll functionality which you can use by sending GET request to http://localhost:8080/api/customers
