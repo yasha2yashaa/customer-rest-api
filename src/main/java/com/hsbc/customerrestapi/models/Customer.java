@@ -1,6 +1,7 @@
 package com.hsbc.customerrestapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -16,8 +17,8 @@ public class Customer {
     private String name;
 
     @ManyToOne
-    @JsonIgnoreProperties({"customers"})
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JsonIgnoreProperties({"customers", "id"})
+    @Cascade(CascadeType.ALL)
     private Address address;
 
     // Default Constructor
