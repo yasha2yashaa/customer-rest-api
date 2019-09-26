@@ -20,6 +20,7 @@ public class Address {
     @Column(name = "street", updatable = false, nullable = false)
     private String street;
 
+    // ZipCode might be validated with regex, but there is no pattern that would work world wide
     @Column(name = "zipCode", updatable = false, nullable = false)
     private String zipCode;
 
