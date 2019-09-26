@@ -1,11 +1,13 @@
 package com.hsbc.customerrestapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
+@Data
 @Entity(name="customers")
 public class Customer {
     @Id
